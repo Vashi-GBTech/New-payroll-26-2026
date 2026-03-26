@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="{{asset('assets/backend/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/backend/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/backend/css/style.css')}}" rel="stylesheet" type="text/css" />
     @section('header')
     @show
 </head>
@@ -36,22 +37,27 @@
             document.documentElement.setAttribute("data-theme", themeMode);
         }
     </script>
-    <div class="d-flex flex-column flex-root">
-        <style>
-            body {
-                background-image: url('assets/backend/media/auth/bg10.jpeg');
-            }
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a2b5c 0%, #263e7f 50%, #d4a45c 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
 
-            [data-theme="dark"] body {
-                background-image: url('assets/backend/media/auth/bg10-dark.jpeg');
-            }
-        </style>
-        <div class="d-flex flex-column justify-content-right flex-lg-row flex-column-fluid" style="background-image: url('{{asset('/assets/backend/media/login.web')}}'); background-size: cover; background-position: center;">
-            <div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-right justify-content-lg-end p-12">
+        [data-theme="dark"] body {
+            background: linear-gradient(135deg, #0f1929 0%, #1a2b5c 50%, #8b6f47 100%);
+        }
+        
+        .app-blank {
+            background: transparent;
+        }
+    </style>
+    <div class="d-flex flex-column flex-root">
+        <div class="d-flex flex-column justify-content-center align-items-center flex-lg-row flex-column-fluid">
+            <div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center align-items-center">
                 @section('content')
                 @show
             </div>
-
         </div>
     </div>
     <script>
@@ -59,6 +65,7 @@
     </script>
     <script src="{{asset('assets/backend/plugins/global/plugins.bundle.js')}}"></script>
     <script src="{{asset('assets/backend/js/scripts.bundle.js')}}"></script>
+    <script src="{{asset('assets/backend/js/custom/authentication/sign-in/general.js')}}"></script>
     @section('footer')
     @show
 </body>
