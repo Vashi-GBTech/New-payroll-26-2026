@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('user.layouts.app')
 
-@section('title', 'Features - Gold Berries Payroll'
+@section('title', 'Features - Gold Berries Payroll')
 
 @section('content')
 
