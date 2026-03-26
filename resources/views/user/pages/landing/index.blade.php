@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('user.layouts.app')
 
 @section('title', 'Gold Berries - Modern Payroll Management System | Enterprise Solutions')
 

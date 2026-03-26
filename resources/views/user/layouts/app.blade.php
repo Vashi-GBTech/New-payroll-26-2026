@@ -4,23 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Gold Berries - Advanced Payroll Management System')</title>
-    <link rel="stylesheet" href="{{ asset('css/landing.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/animations.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/components.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/landing.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/animations.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/frontend/css/components.css') }}">
 </head>
 <body>
-    @include('partials.header')
-    
+    @include('user.partials.header')
     <main>
         @yield('content')
     </main>
-    
-    @include('partials.footer')
-    
+    @include('user.partials.footer')
     <script>
         // Initialize on DOM load
         document.addEventListener('DOMContentLoaded', function() {
-            
             // ============================================
             // INTERSECTION OBSERVER - SCROLL ANIMATIONS
             // ============================================
@@ -28,7 +24,6 @@
                 threshold: 0.1,
                 rootMargin: '0px 0px -100px 0px'
             };
-            
             const observer = new IntersectionObserver(function(entries) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {

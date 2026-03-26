@@ -1,12 +1,14 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'v10.0.0',
-        'version' => '10.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => 'db04d328024562d5f0a0934aac0856b634b33e20',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
-        'aliases' => array(),
+        'aliases' => array(
+            0 => '10.x-dev',
+        ),
         'dev' => true,
     ),
     'versions' => array(
@@ -380,12 +382,14 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'v10.0.0',
-            'version' => '10.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'db04d328024562d5f0a0934aac0856b634b33e20',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
+            'aliases' => array(
+                0 => '10.x-dev',
+            ),
             'dev_requirement' => false,
         ),
         'laravel/pint' => array(
@@ -407,9 +411,9 @@
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
-            'pretty_version' => 'v1.54.0',
-            'version' => '1.54.0.0',
-            'reference' => 'bcc5e06f1a79d806d880a4b027964d2aa5872b07',
+            'pretty_version' => 'v1.55.0',
+            'version' => '1.55.0.0',
+            'reference' => '67dc1b72da4e066a2fb54c1c7582fd2f140ea191',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laravel/sail',
             'aliases' => array(),
@@ -461,9 +465,9 @@
             'dev_requirement' => false,
         ),
         'league/flysystem' => array(
-            'pretty_version' => '3.32.0',
-            'version' => '3.32.0.0',
-            'reference' => '254b1595b16b22dbddaaef9ed6ca9fdac4956725',
+            'pretty_version' => '3.33.0',
+            'version' => '3.33.0.0',
+            'reference' => '570b8871e0ce693764434b29154c54b434905350',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/flysystem',
             'aliases' => array(),
