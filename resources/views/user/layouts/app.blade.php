@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/landing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/animations.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/components.css') }}">
+    <!-- Theme Toggle Logic -->
+    <script src="{{ asset('assets/frontend/js/theme.js') }}"></script>
 </head>
 <body>
     @include('user.partials.header')
@@ -141,57 +143,49 @@
                 button.addEventListener('click', function() {
                     const tabName = this.getAttribute('data-tab');
                     
-                    tabButtons.forEach(btn => {
-                        btn.classList.remove('active');
-                        btn.style.animation = 'none';
-                    });
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
                     tabPanes.forEach(pane => {
                         pane.classList.remove('active');
-                        pane.style.animation = 'none';
+                        // Reset animations on hide
+                        pane.style.opacity = '0';
+                        pane.style.transform = 'translateY(20px)';
                     });
                     
                     this.classList.add('active');
-                    this.style.animation = 'bounceIn 0.5s ease-out';
-                    
                     const activePane = document.getElementById(tabName);
                     if (activePane) {
                         activePane.classList.add('active');
-                        activePane.style.animation = 'fadeInScale 0.6s ease-out';
+                        // Small timeout to trigger CSS animation
+                        setTimeout(() => {
+                            activePane.style.opacity = '1';
+                            activePane.style.transform = 'translateY(0)';
+                        }, 50);
                     }
                 });
             });
 
             // ============================================
-            // PRICING TOGGLE - MONTHLY/YEARLY
+            // ENHANCED SCROLL REVEAL (IntersectionObserver)
             // ============================================
-            const pricingToggle = document.getElementById('pricing-toggle');
-            if (pricingToggle) {
-                pricingToggle.addEventListener('change', function() {
-                    const priceAmounts = document.querySelectorAll('.amount');
-                    
-                    priceAmounts.forEach(amount => {
-                        amount.style.animation = 'none';
-                        void amount.offsetWidth;
-                        amount.style.animation = 'scaleIn 0.4s ease-out';
-                        
-                        if (this.checked) {
-                            const yearly = amount.getAttribute('data-yearly');
-                            amount.textContent = yearly;
-                        } else {
-                            const monthly = amount.getAttribute('data-monthly');
-                            amount.textContent = monthly;
-                        }
-                    });
-                    
-                    document.querySelectorAll('.period').forEach(label => {
-                        if (this.checked) {
-                            label.textContent = '/year';
-                        } else {
-                            label.textContent = '/month';
-                        }
-                    });
+            const revealOptions = {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const revealOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        observer.unobserve(entry.target);
+                    }
                 });
-            }
+            }, revealOptions);
+
+            document.querySelectorAll('section, .reveal-item').forEach(el => {
+                el.classList.add('reveal-init');
+                revealOnScroll.observe(el);
+            });
+
 
             // ============================================
             // FAQ ACCORDION - EXPAND/COLLAPSE

@@ -176,7 +176,3 @@ document.head.appendChild(rippleStyle);
     video.play();
   });
 });
-
-
-
-

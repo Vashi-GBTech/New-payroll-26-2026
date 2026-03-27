@@ -1,5 +1,19 @@
+<style>
+    .navbar-header {
+        top: 0 !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+    .navbar, .navbar-header.scrolled .navbar, .navbar-header .navbar {
+        margin-top: 0 !important;
+        border-top-left-radius: 0 !important;
+        border-top-right-radius: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+</style>
 <header class="navbar-header">
-    <nav class="navbar">
+    <nav class="navbar" style="border-radius: 0; margin-top: 0; max-width: 100%;">
         <!-- Logo -->
         <div class="navbar-logo">
             <div class="logo-container">
@@ -17,9 +31,6 @@
                     <a href="#leave">Leave Management</a>
                     <a href="#dashboard">Employee Dashboard</a>
                 </div>
-            </li>
-            <li class="nav-item">
-                <a href="#pricing" class="menu-link">Pricing</a>
             </li>
             <li class="nav-item">
                 <a href="#solutions" class="menu-link dropdown-toggle">Solutions</a>
@@ -60,23 +71,17 @@
 
         <!-- Theme Toggle Button -->
         <button class="theme-toggle" id="theme-toggle" title="Toggle theme">
-            <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            <!-- Solid Sun Icon -->
+            <svg class="sun-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
             </svg>
-            <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            <!-- Solid Moon Icon -->
+            <svg class="moon-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clip-rule="evenodd" />
             </svg>
         </button>
 
         <!-- CTA Button -->
-        <button class="navbar-btn">Get Started</button>
+        <a href="{{ route('login') }}" class="navbar-btn">Get Started</a>
     </nav>
 </header>
