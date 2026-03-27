@@ -14,7 +14,8 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('login', [AuthController::class, 'login'])->name('login');
     Route::post('auth', [AuthController::class, 'auth'])->name('admin.auth');
     // Route::post('verify-otp', [AuthController::class, 'otpVerified'])->name('admin.verify-otp');
-    Route::post('forget/password', [AuthController::class, 'forgetpassword'])->name('forget.password');
+    Route::get('forget/password', [AuthController::class, 'forgetpasswordPage'])->name('forget.password');
+    Route::post('forget/password', [AuthController::class, 'forgetpassword'])->name('forget.password.submit');
 
 });
 

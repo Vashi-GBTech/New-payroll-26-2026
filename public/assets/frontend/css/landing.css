@@ -368,6 +368,7 @@ body[data-theme="light"] .navbar-header {
     letter-spacing: 0.5px;
     text-transform: uppercase;
     box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+    text-decoration: none;
 }
 
 .navbar-btn::before {
@@ -597,6 +598,7 @@ body[data-theme="light"] .navbar-btn {
     border: 1.5px solid #0b1c2c !important;
     color: #0b1c2c !important;
     background: transparent !important;
+    text-decoration: none !important;
 }
 
 body[data-theme="light"] .btn-outline:hover,

@@ -26,7 +26,7 @@
                 </p>
                 
                 <div class="hero-buttons">
-                    <button class="btn btn-primary btn-glow">Start Free Trial <span>→</span></button>
+                    <a href="{{ route('login') }}" class="btn btn-primary btn-glow">Start Free Trial <span>→</span></a>
                     <button class="btn btn-outline">View Demo Video</button>
                 </div>
             </div>
@@ -444,7 +444,7 @@
         <h2>Transform Your Payroll Today</h2>
         <p>Join thousands of businesses automating their payroll and HR operations</p>
         <div style="margin: 1rem 0;"></div>
-        <button class="btn btn-primary btn-large">Start Your Free Trial Now</button>
+        <a href="{{ route('login') }}" class="btn btn-primary btn-large">Start Your Free Trial Now</a>
         <p class="cta-note">No credit card required • 30-day free trial • Cancel anytime</p>
     </div>
 </section>

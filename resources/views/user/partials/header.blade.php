@@ -82,6 +82,6 @@
         </button>
 
         <!-- CTA Button -->
-        <button class="navbar-btn">Get Started</button>
+        <a href="{{ route('login') }}" class="navbar-btn">Get Started</a>
     </nav>
 </header>

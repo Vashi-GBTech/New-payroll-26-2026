@@ -74,4 +74,13 @@ class AuthController extends Controller {
         }
     }
 
+    public function forgetpasswordPage() {
+        return view("admin.auth.forgot-password");
+    }
+
+    public function forgetpassword(Request $request) {
+        // Placeholder for password reset logic
+        return redirect()->back()->with('success', 'Reset instructions sent if email exists.');
+    }
+
 }
