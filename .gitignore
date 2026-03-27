@@ -11,6 +11,7 @@
 /.env
 /.env.backup
 /.env.production
+/database_setup_files.php
 
 /phpunit.xml
 Homestead.yaml
