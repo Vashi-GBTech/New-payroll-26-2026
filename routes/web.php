@@ -6,7 +6,6 @@ use App\Http\Controllers\Auth\AuthController;
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', function() { return view('user.pages.landing.index'); })->name('landing');
     Route::get('/product', function() { return view('user.pages.product'); })->name('product');
-    Route::get('/pricing', function() { return view('user.pages.pricing'); })->name('pricing');
     Route::get('/features', function() { return view('user.pages.features'); })->name('features');
     Route::get('/about', function() { return view('user.pages.about'); })->name('about');
     Route::get('/contact', function() { return view('user.pages.contact'); })->name('contact');
