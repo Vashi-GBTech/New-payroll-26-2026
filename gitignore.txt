@@ -8,6 +8,10 @@
 .env
 .env.backup
 .env.production
+
+/readme
+/database_setup_files.php
+
 Homestead.json
 Homestead.yaml
 auth.json

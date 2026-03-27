@@ -2333,31 +2333,44 @@ body[data-theme="light"] .workflow-step:hover .step-visual {
     letter-spacing: 0.3px;
 }
 
-/* ============================================
-   FOOTER
-   ============================================ */
+/* ================== FOOTER ================ */
 
 .footer {
     background: rgba(11, 28, 44, 0.6);
     border-top: 1px solid rgba(212, 175, 55, 0.1);
-    padding: 3rem 2rem 1.5rem;
+    padding: 1rem 1.5rem 1.5rem 3rem;
     margin-top: 2.5rem;
 }
 
 .footer-content {
     max-width: 1400px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
+    /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
     gap: 2rem;
     padding-bottom: 2rem;
     border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.footer-logo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    width: 10rem;
+    /* padding-right: 2rem; */
+}
+
+.footer-text {
+    color: var(--color-grey-light);
+    font-size: 0.9rem;
+    padding-left: 15px;
 }
 
 .footer-section {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
+    width: 10rem;
 }
 
 .footer-brand {
@@ -2419,11 +2432,6 @@ body[data-theme="light"] .workflow-step:hover .step-visual {
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--color-gold);
-}
-
-.footer-text {
-    color: var(--color-grey-light);
-    font-size: 0.9rem;
 }
 
 .footer-section h4 {
