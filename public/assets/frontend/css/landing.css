@@ -189,7 +189,7 @@ body[data-theme="light"] .navbar-header {
 .navbar-menu {
     display: flex;
     list-style: none;
-    gap: 1.5rem;
+    gap: 0.3rem;
     align-items: center;
     margin: 0;
     flex: 1;
@@ -311,7 +311,7 @@ body[data-theme="light"] .navbar-header {
 
 /* CTA Button */
 .navbar-btn {
-    padding: 10px 28px;
+    padding: 10px 20px;
     border: 2px solid var(--color-gold);
     background: linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.05) 100%);
     color: var(--color-gold);
