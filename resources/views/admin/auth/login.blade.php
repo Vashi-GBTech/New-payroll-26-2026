@@ -43,7 +43,7 @@
       <div class="field">
         <label for="email">Email Address</label>
         <div class="input-wrap">
-          <input type="email" id="email" name="email" placeholder="you@company.com" autocomplete="email" required />
+          <input type="email" id="email" name="email" placeholder="you@company.com" autocomplete="email" />
           <span class="ico">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="4" width="20" height="16" rx="2"/>
@@ -56,7 +56,7 @@
       <div class="field">
         <label for="password">Password</label>
         <div class="input-wrap">
-          <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required />
+          <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" />
           <span class="ico">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="11" width="18" height="11" rx="2"/>
@@ -172,6 +172,22 @@
     </div>
   </div>
  
+  <div id="errorModal" class="modal-overlay">
+    <div class="modal-card">
+      <div style="text-align: center; padding: 40px 0;">
+        <div style="font-size: 60px; color: #e74c3c; margin-bottom: 20px;">⊗</div>
+        <h2 style="font-size: 28px; color: #A89878; margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">Oops...</h2>
+        <p id="errorMessage" style="font-size: 18px; color: #A89878; margin-bottom: 30px; font-weight: 400; line-height: 1.6;">Please enter the email and password</p>
+      </div>
+
+      <div class="modal-buttons" style="display: flex; justify-content: center;">
+        <button type="button" class="btn-cancel" onclick="closeErrorModal()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+ 
 </main>
  
 <script>
@@ -198,6 +214,26 @@
  
   function handleLogin(e) {
     e.preventDefault();
+    
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    // Validation: Check if fields are empty
+    if (!email && !password) {
+      openErrorModal('Please enter the email');
+      return;
+    }
+
+    if (!email) {
+      openErrorModal('Please enter the email');
+      return;
+    }
+
+    if (!password) {
+      openErrorModal('Please enter the password');
+      return;
+    }
+
     const btn = e.target.querySelector('.btn-login');
     const orig = btn.textContent;
     btn.textContent = 'Authenticating…';
@@ -223,6 +259,18 @@
     document.querySelector('#forgotModal .form').reset();
   }
 
+  function openErrorModal(message = 'Please enter the email and password') {
+    const modal = document.getElementById('errorModal');
+    const errorMessage = document.getElementById('errorMessage');
+    errorMessage.textContent = message;
+    modal.classList.add('active');
+  }
+
+  function closeErrorModal() {
+    const modal = document.getElementById('errorModal');
+    modal.classList.remove('active');
+  }
+
   function toggleForgotPw() {
     const pw = document.getElementById('forgot-password');
     const icon = document.getElementById('eye-icon-forgot');
@@ -245,11 +293,19 @@
 
   function handlePasswordReset(e) {
     e.preventDefault();
-    const password = document.getElementById('forgot-password').value;
-    const confirmPassword = document.getElementById('forgot-confirm').value;
+    const email = document.getElementById('forgot-email').value.trim();
+    const password = document.getElementById('forgot-password').value.trim();
+    const confirmPassword = document.getElementById('forgot-confirm').value.trim();
 
-    if (password !== confirmPassword) {
-      alert('Passwords do not match!');
+    // Validation: Check if all fields are empty
+    if (!email && !password && !confirmPassword) {
+      openErrorModal('Please enter the email');
+      return;
+    }
+
+    // Validation: Check if password and confirm password are empty or don't match
+    if (!password || !confirmPassword || password !== confirmPassword) {
+      openErrorModal('new password is not match with confirm password');
       return;
     }
 
@@ -268,10 +324,18 @@
 
   // Close modal when clicking outside
   document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('forgotModal');
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) {
+    const forgotModal = document.getElementById('forgotModal');
+    const errorModal = document.getElementById('errorModal');
+    
+    forgotModal.addEventListener('click', function(e) {
+      if (e.target === forgotModal) {
         closeForgotModal();
+      }
+    });
+
+    errorModal.addEventListener('click', function(e) {
+      if (e.target === errorModal) {
+        closeErrorModal();
       }
     });
   });
