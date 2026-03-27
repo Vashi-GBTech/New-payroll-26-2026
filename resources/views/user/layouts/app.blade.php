@@ -97,11 +97,10 @@
             window.addEventListener('scroll', function() {
                 const navbar = document.querySelector('.navbar-header');
                 const currentScroll = window.scrollY;
-                
                 if (currentScroll > 50) {
                     navbar.classList.add('scrolled');
                     // Add subtle parallax to navbar
-                    navbar.style.transform = `translateY(${Math.min(currentScroll * 0.02, 10)}px)`;
+                    navbar.style.transform = `translateY(0px)`;
                 } else {
                     navbar.classList.remove('scrolled');
                     navbar.style.transform = 'translateY(0)';
