@@ -44,26 +44,18 @@
         }
     </style>
     <div class="footer-content">
-<<<<<<< HEAD
-        <div class="footer-section footer-brand" style="flex: 2; min-width: 250px; padding-right: 2rem;">
-            <div class="footer-logo" style="margin-bottom: 24px;">
-                <img src="/assets/frontend/images/GBtechlogo.jpg" alt="Gold Berries Logo" class="footer-logo-img" style="height: 55px; width: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);">
-            </div>
-            <p class="footer-text" style="line-height: 1.8; color: #a0aab5; font-size: 0.95rem;">Enterprise payroll management solutions for modern organizations. Built to automate complex financial workflows with cutting-edge intelligence.</p>
-=======
         <div class="footer-logo footer-brand">
             <div class="footer-logo">
                 <img src="/assets/frontend/images/GBtechlogo.jpg" alt="Gold Berries Logo" class="footer-logo-img" style="height: 60px; width: auto;">
             </div>
             <p class="footer-text">Enterprise payroll management solutions.</p>
->>>>>>> 7b2c0fa (change footer by abhishek)
         </div>
         <div class="footer-section" style="flex: 1; min-width: 140px;">
             <h4>PRODUCT</h4>
             <ul>
                 <li><a href="{{ route('product') }}" class="footer-link">Product Features</a></li>
                 <li><a href="{{ route('features') }}" class="footer-link">All Features</a></li>
-                <li><a href="#integrations" class="footer-link">Integrations</a></li>
+                <li><a href="#modules" class="footer-link">Core Modules</a></li>
             </ul>
         </div>
         <div class="footer-section" style="flex: 1; min-width: 140px;">
@@ -71,8 +63,8 @@
             <ul>
                 <li><a href="{{ route('about') }}" class="footer-link">About Us</a></li>
                 <li><a href="{{ route('contact') }}" class="footer-link">Contact</a></li>
-                <li><a href="#blog" class="footer-link">Blog</a></li>
-                <li><a href="#careers" class="footer-link">Careers</a></li>
+                <li><a href="#integrations" class="footer-link">Integrations</a></li>
+                <li><a href="#partners" class="footer-link">Partners</a></li>
             </ul>
         </div>
         <div class="footer-section" style="flex: 1; min-width: 140px;">

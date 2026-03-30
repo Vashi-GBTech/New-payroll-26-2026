@@ -16,7 +16,7 @@
     <!-- Header Area -->
     <div class="login-header">
         <h1>Reset Your Password</h1>
-        <p style="color: var(--color-grey-light); font-size: 0.85rem; margin-top: 0.5rem; text-align: center;">Enter your email address and we'll send you instructions to reset your password.</p>
+        <p style="color: var(--color-grey-light); font-size: 0.85rem; margin-top: 0.5rem; text-align: center;">Enter your email address and password.</p>
     </div>
 
     <!-- Decorative Rule -->
