@@ -27,7 +27,7 @@
                 
                 <div class="hero-buttons">
                     <a href="{{ route('login') }}" class="btn btn-primary btn-glow">Start Free Trial <span>→</span></a>
-                    <button class="btn btn-outline">View Demo Video</button>
+                    <button class="btn btn-outline">Watch It In Action</button>
                 </div>
             </div>
 
