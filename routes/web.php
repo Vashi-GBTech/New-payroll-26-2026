@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', function() { return view('user.pages.landing.index'); })->name('landing');
@@ -21,5 +24,17 @@ Route::group(['middleware' => 'guest'], function () {
 
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('notification', [DashboardController::class, 'notification'])->name('notification');
 
+    Route::group(['prefix' => 'role'], function () {
+        Route::get('/', [RoleController::class, 'index'])->name('role.index');
+        Route::post('save', [RoleController::class, 'save'])->name('role.save');
+        Route::post('update', [RoleController::class, 'update'])->name('role.update');
+        Route::post('perm-save', [RoleController::class, 'savePermission'])->name('permission.save');
+        Route::post('perm-update', [RoleController::class, 'updatePermission'])->name('permission.update');
+    });
+
+
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });

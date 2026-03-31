@@ -10,7 +10,7 @@
 @section('content')
     <!-- Logo Section -->
     <div class="logo-container">
-        <img src="{{ asset('assets/frontend/images/GBtechlogo.jpg') }}" alt="Gold Berries Logo" class="logo-img">
+        <img src="{{ asset('assets/frontend/images/gb.jpg') }}" alt="Gold Berries Logo" class="logo-img">
     </div>
 
     <!-- Header Area -->

@@ -1,14 +1,11 @@
-@extends('layouts.admin')
+@extends('admin.layouts.admin')
 
-@section('title','Dashboard')
+@section('title')
+    {{ __('Dashboard') }}
+@endsection
 
 @section('header')
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="sweetalert2.min.css">
-    <link href="{{ asset('assets/backend/css/comman.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/backend/css/datepicker.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/backend/css/dashboard.css') }}" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
     <style>
         .fc-event {
             font-size: 0.7rem;
@@ -23,8 +20,17 @@
 @endsection
 
 @section('breadcrumb')
-<h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">Digital Healthcare Dashboard</h1>
-
+    @php
+        $hour = now()->hour;
+        if ($hour < 12) {
+            $greeting = 'Good Morning';
+        } elseif ($hour < 17) {
+            $greeting = 'Good Afternoon';
+        } else {
+            $greeting = 'Good Evening';
+        }
+    @endphp
+    <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">{{ __($greeting) }} {{ Auth::user()->name }}</h1>
 @endsection
 
 @section('content')
@@ -40,25 +46,6 @@
                             <span class="text-muted fs-7 mb-1">{{ __('Patient Management System') }}</span>
                             <span class="text-muted fs-7 mb-1">{{ __('Electronic Health Records (EHR)') }}</span>
                             <div><span class="text-muted fs-7 mb-1">{{ __('Appointment & Staff Management') }}</span></div>
-                            <div class="mt-5"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-4 col-md-6 col-12 mb-4">
-            <div class="card h-100">
-                <div class="card-header border-0 pt-4 d-flex justify-content-between align-items-center">
-                    <h3 class="card-title mb-0">{{ __('Lab Testing & Diagnostics') }}</h3>
-                    <br><br><br>
-                </div>
-                <div class="card-body py-3">
-                    <div class="align-items-start gap-4" >
-                        <div class="d-flex flex-column">
-                            <span class="text-muted fs-7 mb-1">{{ __('Blood Tests & Pathology') }}</span>
-                            <span class="text-muted fs-7 mb-1">{{ __('Sample Collection & Reports') }}</span>
-                            <div><span class="text-muted fs-7 mb-1">{{ __('Automated Lab Result Tracking') }}</span></div>
                             <div class="mt-5"></div>
                         </div>
                     </div>
@@ -84,80 +71,6 @@
                 </div>
             </div>
         </div>
-        
-        <div class="col-lg-4 col-md-12 col-12 mb-4">
-            <div class="card h-100">
-                <div class="card-header border-0 pt-4">
-                    <h3 class="card-title mb-0">{{ __('Radiology') }}</h3>
-                </div>
-                <div class="card-body py-3">
-                    <div class="align-items-start gap-4" >
-                        <div class="d-flex flex-column">
-                            <span class="text-muted fs-7 mb-1">{{ __('X-Ray, MRI & CT Scan') }}</span>
-                            <span class="text-muted fs-7 mb-1">{{ __('Image Storage & Reports') }}</span>
-                            <div><span class="text-muted fs-7 mb-1">{{ __('Radiology Workflow Automation') }}</span></div>
-                            <div class="mt-5"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-4 col-md-12 col-12 mb-4">
-            <div class="card h-100">
-                <div class="card-header border-0 pt-4">
-                    <h3 class="card-title mb-0">{{ __('Billing') }}</h3>
-                </div>
-                <div class="card-body py-3">
-                    <div class="align-items-start gap-4" >
-                        <div class="d-flex flex-column">
-                            <span class="text-muted fs-7 mb-1">{{ __('Invoice Generation') }}</span>
-                            <span class="text-muted fs-7 mb-1">{{ __('Insurance & Payment Tracking') }}</span>
-                            <div><span class="text-muted fs-7 mb-1">{{ __('Tax & Financial Reports') }}</span></div>
-                            <div class="mt-5"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-4 col-md-12 col-12 mb-4">
-            <div class="card h-100">
-                <div class="card-header border-0 pt-4">
-                    <h3 class="card-title mb-0">{{ __('ICU Monitoring') }}</h3>
-                </div>
-                <div class="card-body py-3">
-                    <div class="align-items-start gap-4" >
-                        <div class="d-flex flex-column">
-                            <span class="text-muted fs-7 mb-1">{{ __('Real-time Patient Monitoring') }}</span>
-                            <span class="text-muted fs-7 mb-1">{{ __('Vital Signs Tracking') }}</span>
-                            <div><span class="text-muted fs-7 mb-1">{{ __('Emergency Alerts & Notifications') }}</span></div>
-                            <div class="mt-5"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-4 col-md-12 col-12 mb-4"></div>
-        <div class="col-lg-4 col-md-12 col-12 mb-4">
-            <div class="card h-100">
-                <div class="card-header border-0 pt-4">
-                    <h3 class="card-title mb-0">{{ __('Nursing Station') }}</h3>
-                </div>
-                <div class="card-body py-3">
-                    <div class="align-items-start gap-4" >
-                        <div class="d-flex flex-column">
-                            <span class="fw-normal text-muted fs-7 mb-1">{{ __('Patient Care Management') }}</span>
-                            <span class="fw-normal text-muted fs-7 mb-1">{{ __('Medication Administration') }}</span>
-                            <div><span class="fw-normal text-muted fs-7 mb-1">{{ __('Nurse Task & Shift Management') }}</span></div>
-                            <div class="mt-5"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-12 col-12 mb-4"></div>
     <!-- End Help Section -->
 
 </div>

@@ -3,20 +3,21 @@
 <html lang="en">
 
 <head>
-    <base href="../../" />
-    <title>
-        @section('title')
-        @show
-    </title>
+    <title> @yield('title') </title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <link rel="shortcut icon" href="{{asset('assets/backend/media/logos/feb.png')}}" />
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="{{asset('assets/backend/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/backend/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/backend/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/backend/css/loader.css')}}" rel="stylesheet" type="text/css" />
+
+    <link href="{{ asset('assets/backend/media/logos/feb.png')}}" rel="shortcut icon" />
+    <link href="{{ asset('assets/backend/css/comman.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/backend/css/datepicker.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/backend/css/dashboard.css') }}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
 
     <style>
         input[type=number]::-webkit-inner-spin-button,
@@ -31,9 +32,7 @@
         }
     </style>
 
-    @section('header')
-    @show
-
+    @yield('style')
 </head>
 
 <body id="kt_body" class="header-tablet-and-mobile-fixed aside-enabled">
@@ -64,14 +63,12 @@
                     <div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
                         <div class="symbol symbol-50px">
                             <img alt="Logo" src="" onerror="this.onerror=null;this.src='/assets/backend/media/blank.png'" />
-
                         </div>
                         <div class="aside-user-info flex-row-fluid flex-wrap ms-5">
                             <div class="d-flex">
                                 <div class="flex-grow-1 me-2">
                                     <a href="#" class="text-white text-hover-primary fs-6 fw-bold"></a>
                                     <span class="text-gray-600 fw-semibold d-block fs-8 mb-1"></span>
-
                                 </div>
                                 <div class="me-n2">
                                     <a href="#" class="btn btn-icon btn-sm btn-active-color-primary mt-n2" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" data-kt-menu-overflow="true">
@@ -97,9 +94,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="separator my-2"></div>
-
                                         <div class="menu-item px-5">
                                             <a href="" class="menu-link px-5">{{ __('My Profile')}}</a>
                                         </div>
@@ -107,9 +102,8 @@
                                         <div class="separator my-2"></div>
 
                                         <div class="menu-item px-5">
-                                            <a href="{{ route('admin.logout') }}" class="menu-link px-5">{{ __('Sign Out')}}</a>
+                                            <a href="{{ route('logout') }}" class="menu-link px-5">{{ __('Sign Out')}}</a>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -120,9 +114,25 @@
                     <div class="hover-scroll-overlay-y my-5 px-2" id="kt_aside_menu_wrapper" data-kt-scroll="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="{default: '#kt_aside_toolbar, #kt_aside_footer', lg: '#kt_header, #kt_aside_toolbar, #kt_aside_footer'}" data-kt-scroll-wrappers="#kt_aside_menu" data-kt-scroll-offset="5px">
                         <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true">
                             <!-- Dashboard -->
-                            <!-- @if(Auth::user()->hasPermission('admin.dashboard')) -->
-                                <a href="{{ route('admin.dashboard') }}" class="menu-item menu-accordion">
-                                    <span class="menu-link {{Request::is('admin/dashboard*') ? 'active' : ''}}">
+                            <a href="{{ route('dashboard') }}" class="menu-item menu-accordion">
+                                <span class="menu-link {{Request::is('dashboard*') ? 'active' : ''}}">
+                                    <span class="menu-icon">
+                                        <span class="svg-icon svg-icon-2">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                            </svg>
+                                        </span>
+                                    </span>
+                                    <span class="menu-title">{{ __('Dashboard')}}</span>
+                                </span>
+                            </a>
+
+                            <div class="menu-item">
+                                <a href="{{ url('role') }}" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('role*') ? 'active' : ''}}">
                                         <span class="menu-icon">
                                             <span class="svg-icon svg-icon-2">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -133,148 +143,10 @@
                                                 </svg>
                                             </span>
                                         </span>
-                                        <span class="menu-title">{{ __('Dashboard')}}</span>
+                                        <span class="menu-title">{{ __('Role')}}</span>
                                     </span>
                                 </a>
-                            <!-- @endif -->
-
-                            <!-- @if(Auth::user()->hasPermission('admin.department.index')) -->
-                                <div class="menu-item">
-                                    <a href="{{ url('admin/department') }}" class="menu-item menu-accordion">
-                                        <span class="menu-link {{Request::is('admin/department*') ? 'active' : ''}}">
-                                            <span class="menu-icon">
-                                                <span class="svg-icon svg-icon-2">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                            </span>
-                                            <span class="menu-title">{{ __('HMIS Platform')}}</span>
-                                        </span>
-                                    </a>
-                                </div>
-                            <!-- @endif -->
-
-                            <!-- @if(Auth::user()->hasPermission('admin.designation.index'))  -->
-                                <div class="menu-item">
-                                    <a href="{{ url('admin/designation') }}" class="menu-item menu-accordion">
-                                        <span class="menu-link {{Request::is('admin/designation*') ? 'active' : ''}}">
-                                            <span class="menu-icon">
-                                                <span class="svg-icon svg-icon-2">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                            </span>
-                                            <span class="menu-title">{{ __('Lab Testing')}}</span>
-                                        </span>
-                                    </a>
-                                </div>
-                            <!-- @endif -->
-
-                            <!-- @if(Auth::user()->hasPermission('admin.role.index')) -->
-                                <div class="menu-item">
-                                    <a href="{{ url('admin/role') }}" class="menu-item menu-accordion">
-                                        <span class="menu-link {{Request::is('admin/role*') ? 'active' : ''}}">
-                                            <span class="menu-icon">
-                                                <span class="svg-icon svg-icon-2">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                            </span>
-                                            <span class="menu-title">{{ __('Pharmacy')}}</span>
-                                        </span>
-                                    </a>
-                                </div>
-                            <!-- @endif -->
-
-                            <!-- @if(Auth::user()->hasPermission('admin.module.index')) -->
-                                <div class="menu-item">
-                                    <a href="{{ url('admin/module') }}" class="menu-item menu-accordion">
-                                        <span class="menu-link {{Request::is('admin/module*') ? 'active' : ''}}">
-                                            <span class="menu-icon">
-                                                <span class="svg-icon svg-icon-2">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                            </span>
-                                            <span class="menu-title">{{ __('Radiology')}}</span>
-                                        </span>
-                                    </a>
-                                </div>
-                            <!-- @endif -->
-
-                            <!-- @if(Auth::user()->hasPermission('admin.module.index')) -->
-                                <div class="menu-item">
-                                    <a href="{{ url('admin/module') }}" class="menu-item menu-accordion">
-                                        <span class="menu-link {{Request::is('admin/module*') ? 'active' : ''}}">
-                                            <span class="menu-icon">
-                                                <span class="svg-icon svg-icon-2">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                            </span>
-                                            <span class="menu-title">{{ __('Billing')}}</span>
-                                        </span>
-                                    </a>
-                                </div>
-                            <!-- @endif -->
-                            <!-- @if(Auth::user()->hasPermission('admin.module.index')) -->
-                                <div class="menu-item">
-                                    <a href="{{ url('admin/module') }}" class="menu-item menu-accordion">
-                                        <span class="menu-link {{Request::is('admin/module*') ? 'active' : ''}}">
-                                            <span class="menu-icon">
-                                                <span class="svg-icon svg-icon-2">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                            </span>
-                                            <span class="menu-title">{{ __('ICU Monitoring')}}</span>
-                                        </span>
-                                    </a>
-                                </div>
-                            <!-- @endif -->
-                            <!-- @if(Auth::user()->hasPermission('admin.module.index')) -->
-                                <div class="menu-item">
-                                    <a href="{{ url('admin/module') }}" class="menu-item menu-accordion">
-                                        <span class="menu-link {{Request::is('admin/module*') ? 'active' : ''}}">
-                                            <span class="menu-icon">
-                                                <span class="svg-icon svg-icon-2">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                        <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                            </span>
-                                            <span class="menu-title">{{ __('Nursing Station')}}</span>
-                                        </span>
-                                    </a>
-                                </div>
-                            <!-- @endif -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -283,8 +155,8 @@
                 <div id="kt_header" class="header align-items-stretch">
                     <div class="header-brand">
                         <a href="#" class="d-flex align-items-center gap-5" id="kt_header_logo">
-                            <img alt="Logo" src="{{asset('assets/backend/media/logos/login.webp')}}" style="height: 40px; width: 40px;" />
-                            <span style="font-size: 30px; color: white; font-weight: 500; ">{{ __('GB Tech')}}</span>
+                            <img alt="Logo" src="{{asset('assets/backend/images/gbtech.png')}}" style="height: 40px; width: 120px;" />
+                            <span style="font-size: 30px; color: white; font-weight: 500; "></span>
                         </a>
                         <div id="kt_aside_toggle" class="btn btn-icon w-auto px-0 btn-active-color-primary aside-minimize" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="aside-minimize">
                             <span class="svg-icon svg-icon-1 me-n1 minimize-default">
@@ -316,13 +188,12 @@
                     <div class="toolbar d-flex align-items-stretch">
                         <div class="container-fluid py-6 py-lg-0 d-flex  flex-lg-row align-items-lg-stretch justify-content-between">
                             <div class="page-title d-flex justify-content-center flex-column me-5">
-                                @section('breadcrumb')
-                                @show
+                                @yield('breadcrumb')
                             </div>
 
                             <!--begin::Theme mode-->
                             <div class="d-flex align-items-center gap-3">
-                                <a href="{{url('admin/notification')}}" class="btn btn-sm btn-icon btn-icon-muted btn-active-icon-primary" style="position: relative;">
+                                <a href="{{url('notification')}}" class="btn btn-sm btn-icon btn-icon-muted btn-active-icon-primary" style="position: relative;">
                                     <i class="far fa-bell text-primary" style="font-size: 20px;"></i>
                                     <span style="position: absolute; top: 0; right: -2px; padding: 0 2px 0 5px; border-radius: 50%; background-color: #0093dd; color: #fff;">
                                         9+
@@ -417,10 +288,7 @@
                             </svg>
                         </div>
                         <div id="kt_content_container" class="container-xxl">
-
-                            @section('content')
-                            @show
-
+                            @yield('content')
                         </div>
                     </div>
                 </div>
@@ -448,13 +316,12 @@
 
     <script src="{{asset('assets/backend/plugins/global/plugins.bundle.js')}}"></script>
     <script src="{{asset('assets/backend/js/scripts.bundle.js')}}"></script>
-    <script src="{{asset('assets/backend/plugins/custom/datatables/datatables.bundle.js')}}"></script>
     <script src="{{asset('assets/backend/js/widgets.bundle.js')}}"></script>
     <script src="{{asset('assets/backend/js/custom/widgets.js')}}"></script>
 
     <script src="{{asset('assets/backend/js/push.min.js')}}"></script>
-    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-
+    <script src="{{asset('assets/backend/js/pusher.js')}}"></script>
+    <script src="{{asset('assets/backend/js/sweetalert.js')}}"></script>
 
     <!-- Loader -->
     <script>
@@ -473,186 +340,22 @@
         });
 
         // // show loader when the page is being reloaded
-        // window.addEventListener('beforeunload', function() {
-        //     window.scrollTo(0, 0);
-        // });
-    </script>
-
-    <script>
-        // Enable pusher logging - don't include this in production
-        // Pusher.logToConsole = true;
-
-        var pusher = new Pusher('{{ config("broadcasting.connections.pusher.key") }}', {
-            cluster: '{{ config("broadcasting.connections.pusher.options.cluster") }}'
+        window.addEventListener('beforeunload', function() {
+            window.scrollTo(0, 0);
         });
 
-        // subscribe to Stock Channel and listen for Stock Update Event
-        var channel = pusher.subscribe('stockChannel');
-        channel.bind('stockUpdateEvent', function(data) {
-            if (!('Notification' in window)) {
-                alert('Web Notification is not supported');
-                return;
-            }
 
-            if (!plantArray.includes(data['plantId'])) {
-                return;
-            }
-
-            Push.create(data['title'], {
-                body: data['message'],
-                icon: '/assets/backend/media/logos/login.webp',
-                timeout: 10000,
-                onClick: function() {
-                    window.location.href = data['redirectTo'];
-                }
-            })
-
-            if ('speechSynthesis' in window) {
-                var msg = new SpeechSynthesisUtterance(data['message']);
-                window.speechSynthesis.speak(msg);
-            }
-
-            // check if the page is homepage
-            if (window.location.pathname == '/admin/dashboard') {
-                $('#acceptedNoteId').html((data['otherData']['totalAcceptedWeight'] / 1000).toFixed(2));
-                $('#rejectedNoteId').html((data['otherData']['totalRejectedWeight'] / 1000).toFixed(2));
-            }
-
-        });
-
-        // subscribe to General Channel and listen for General Event
-        var generalChannel = pusher.subscribe('generalChannel');
-        generalChannel.bind('generalEvent', function(data) {
-            if (!('Notification' in window)) {
-                alert('Web Notification is not supported');
-                return;
-            }
-
-            Push.create(data['title'], {
-                body: data['message'],
-                icon: '/assets/backend/media/logos/login.webp',
-                timeout: 10000,
-                onClick: function() {
-                    window.location.href = data['redirectTo'];
-                }
-            })
-
-            // if ('speechSynthesis' in window) {
-            // 	var msg = new SpeechSynthesisUtterance(data['message']);
-            // 	window.speechSynthesis.speak(msg);
-            // }
-        });
-    </script>
-
-    <!-- Prevent the minus sign on keypress -->
-    <script>
-        $('input[type="number"]').on('keypress', function(event) {
-            var key = event.which;
-            if (key === 45 || key === 8722) {
-                event.preventDefault();
-            }
-        });
-
-        $('input[type="number"]').on('input', function() {
-            if ($(this).val() < 0) {
-                $(this).val(0);
-            }
-        });
-    </script>
-
-    <!-- Prevent Minus Sign -->
-    <script>
-        $('.preventMinus').bind('keypress', function(event) {
-            var key = event.which;
-            if (key === 45 || key === 8722) {
-                event.preventDefault();
-            }
-        });
-    </script>
-
-    <!-- Function to auto-capitalize input fields -->
-    <script>
-        function autoCapitalizeInput(inputElement) {
-            inputElement.value = inputElement.value.toUpperCase();
-        }
-    </script>
-
-    <!-- Accept only text -->
-    <script>
-        $('.textOnly').on('keydown', function(event) {
-            var key = event.which || event.keyCode;
-            if (key == 8 || key == 9 || key == 13 || key == 32 || key == 46 ||
-                (key >= 35 && key <= 40) ||
-                (event.ctrlKey === true || event.metaKey === true) &&
-                (key === 65 || key === 67 || key === 86 || key === 88)) {
-                return;
-            }
-            if ((key >= 48 && key <= 57) ||
-                (key >= 96 && key <= 105) ||
-                (key >= 186 && key <= 222) ||
-                (key < 65 || key > 90)) {
-                event.preventDefault();
-            }
-        });
-    </script>
-
-    <!-- Accept Only Numbers -->
-    <script>
-        $('.numOnly').on('keydown', function(event) {
-            var key = event.which;
-            var ctrl = event.ctrlKey || event.metaKey;
-
-            if (
-                key === 8 || key === 9 || key === 37 || key === 39 || key === 46 ||
-                (ctrl && (key === 65 || key === 67 || key === 86 || key === 88)) ||
-                (key >= 48 && key <= 57) || (key >= 96 && key <= 105)
-            ) {
-                return;
-            } else {
-                event.preventDefault();
-            }
-        }).on('input', function() {
-            this.value = this.value.replace(/\D/g, '');
-        });
-    </script>
-
-    <!-- Accept Only Numbers and Decimal -->
-    <script>
-        $('.numDecimalOnly').on('keydown', function(event) {
-            var key = event.which;
-            var ctrl = event.ctrlKey || event.metaKey;
-
-            if (
-                key === 8 || key === 9 || key === 37 || key === 39 || key === 46 ||
-                (ctrl && (key === 65 || key === 67 || key === 86 || key === 88)) ||
-                (key >= 48 && key <= 57) ||
-                (key >= 96 && key <= 105) ||
-                key === 190 || key === 110
-            ) {
-                return;
-            } else {
-                event.preventDefault();
-            }
-        }).on('input', function() {
-            this.value = this.value.replace(/[^0-9.]/g, '');
-            if ((this.value.match(/\./g) || []).length > 1) {
-                this.value = this.value.slice(0, this.value.lastIndexOf('.'));
-            }
-        });
-    </script>
-
-    <script>
         $('.form').submit(function() {
             $('#kt_modal_add_submit').prop('disabled', true);
         });
+
 
         function openModal(closeModal, openModal) {
             $('#' + closeModal).modal('hide');
             $('#' + openModal).modal('show');
         }
-    </script>
 
-    <script>
+
         document.addEventListener('DOMContentLoaded', function() {
             const inputs = document.querySelectorAll('.noSpace');
 
@@ -662,9 +365,8 @@
                 });
             });
         });
-    </script>
+ 
 
-    <script>
         $('.addableSelect').select2({
             placeholder: "Select or add new",
             tags: true,
@@ -685,9 +387,7 @@
             }
         });
     </script>
-
-    @section('scripts')
-    @show
+    @yield('scripts')
 </body>
 
 </html>

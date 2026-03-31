@@ -73,13 +73,15 @@ function loadDatabaseRecord(url, columns, tableId, editFn, deleteFn, showFn, edi
 
 
 // sweetalert 
-function validationAlert(title, text, icon, timer, confirmButtonText, showConfirmButton) {
+function validationAlert(title, text, icon, timer=null, confirmButtonText, showConfirmButton, buttonsStyling=null, customClass=null) {
     Swal.fire({
         title: title,
         text: text,
         icon: icon,
         timer: timer,
         confirmButtonText: confirmButtonText,
+        buttonsStyling:buttonsStyling,
+        customClass:customClass,
         showConfirmButton: showConfirmButton === undefined ? true : showConfirmButton,
     });
 }
@@ -94,12 +96,7 @@ const acceptOnlyNumber = (event) => {
         input.value = input.value.substring(0, 10);
         event.preventDefault();
     } else {
-        // Swal.fire({
-        //     title: 'Invalid Input',
-        //     text: "Please enter a valid " + (input.placeholder || input.name) + "\nonly numbers are allowed.",
-        //     icon: 'error',
-        //     confirmButtonText: 'OK'
-        // });
+        validationAlert('Invalid Input', 'Please enter a valid " + (input.placeholder || input.name) + "\nonly numbers are allowed.', 'error', 2000, 'OK');
     }
 };
 
@@ -107,17 +104,11 @@ const acceptOnlyNumber = (event) => {
 // Accept Only String function start
 const stringValidation = (event) => {
     const input = event.target;
-    console.log(`Input field: ${input.placeholder || input.name}`, `Value: ${input.value}`);
     const value = input.value;
     const regex = /^[a-zA-Z][a-zA-Z0-9\s.,-]*$/;
     if (!regex.test(value)) {
         input.value = '';
-        Swal.fire({
-            title: 'Invalid Input',
-            text: "Please enter a valid " + (input.placeholder || input.name) + "\nonly alphanumeric characters, spaces, commas, periods, and hyphens are allowed.",
-            icon: 'error',
-            confirmButtonText: 'OK'
-        });
+        validationAlert('Invalid Input', 'Please enter a valid " + (input.placeholder || input.name) + "\nonly alphanumeric characters, spaces, commas, periods, and hyphens are allowed.', 'error', 2000, 'OK');
     } else {
         console.log(`Valid input for ${input.placeholder || input.name}: ${input.value}`);
     }
@@ -157,7 +148,6 @@ const openFlatpickr = (event) => {
                         let fromIndex = fromDateArray.indexOf(input.id);
                         let toFieldId = toDateArray[fromIndex];  // same index ka pair lega
                         let toDateInput = document.getElementById(toFieldId);
-
                         if (toDateInput) {
                             // Enable To-date only after From-date is chosen
                             toDateInput.removeAttribute("disabled");
@@ -279,8 +269,8 @@ document.addEventListener('DOMContentLoaded', function() {
             totalHourInput.value = '';
         }
     }
-    document.getElementById('in_time_outdoor').addEventListener('change', calculateTotalHour);
-    document.getElementById('out_time_outdoor').addEventListener('change', calculateTotalHour);
+    // document.getElementById('in_time_outdoor').addEventListener('change', calculateTotalHour);
+    // document.getElementById('out_time_outdoor').addEventListener('change', calculateTotalHour);
 });
 
 
@@ -671,7 +661,93 @@ function validateBeforeSubmit(formId, saveButtonId) {
             });
         }
     }
-
-    
 // Comman Delete Function End -- 
 
+
+// Prevent the minus sign on keypress 
+$('input[type="number"]').on('keypress', function(event) {
+    var key = event.which;
+    if (key === 45 || key === 8722) {
+        event.preventDefault();
+    }
+});
+
+$('input[type="number"]').on('input', function() {
+    if ($(this).val() < 0) {
+        $(this).val(0);
+    }
+});
+
+// Prevent Minus Sign
+$('.preventMinus').bind('keypress', function(event) {
+    var key = event.which;
+    if (key === 45 || key === 8722) {
+        event.preventDefault();
+    }
+});
+
+// Function to auto-capitalize input fields
+function autoCapitalizeInput(inputElement) {
+    inputElement.value = inputElement.value.toUpperCase();
+}
+
+
+// Accept only text
+$('.textOnly').on('keydown', function(event) {
+    var key = event.which || event.keyCode;
+    if (key == 8 || key == 9 || key == 13 || key == 32 || key == 46 ||
+        (key >= 35 && key <= 40) ||
+        (event.ctrlKey === true || event.metaKey === true) &&
+        (key === 65 || key === 67 || key === 86 || key === 88)) {
+        return;
+    }
+    if ((key >= 48 && key <= 57) ||
+        (key >= 96 && key <= 105) ||
+        (key >= 186 && key <= 222) ||
+        (key < 65 || key > 90)) {
+        event.preventDefault();
+    }
+});
+
+
+// Accept Only Numbers
+$('.numOnly').on('keydown', function(event) {
+    var key = event.which;
+    var ctrl = event.ctrlKey || event.metaKey;
+
+    if (
+        key === 8 || key === 9 || key === 37 || key === 39 || key === 46 ||
+        (ctrl && (key === 65 || key === 67 || key === 86 || key === 88)) ||
+        (key >= 48 && key <= 57) || (key >= 96 && key <= 105)
+    ) {
+        return;
+    } else {
+        event.preventDefault();
+    }
+}).on('input', function() {
+    this.value = this.value.replace(/\D/g, '');
+});
+
+
+// Accept Only Numbers and Decimal
+$('.numDecimalOnly').on('keydown', function(event) {
+    var key = event.which;
+    var ctrl = event.ctrlKey || event.metaKey;
+
+    if (
+        key === 8 || key === 9 || key === 37 || key === 39 || key === 46 ||
+        (ctrl && (key === 65 || key === 67 || key === 86 || key === 88)) ||
+        (key >= 48 && key <= 57) ||
+        (key >= 96 && key <= 105) ||
+        key === 190 || key === 110
+    ) {
+        return;
+    } else {
+        event.preventDefault();
+    }
+}).on('input', function() {
+    this.value = this.value.replace(/[^0-9.]/g, '');
+    if ((this.value.match(/\./g) || []).length > 1) {
+        this.value = this.value.slice(0, this.value.lastIndexOf('.'));
+    }
+});

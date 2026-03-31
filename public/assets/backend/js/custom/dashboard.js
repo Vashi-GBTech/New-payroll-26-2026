@@ -238,7 +238,7 @@ const getYearWiseHoliday = (event) => {
     event.preventDefault();
     let year = event.target.value;
     $.ajax({
-        url: 'admin/dashboard/get-holiday-details',
+        url: 'dashboard/get-holiday-details',
         method: 'GET',
         data: {
             holiday_year: year
@@ -312,7 +312,7 @@ const getYearWiseHoliday = (event) => {
 
 const showHolidayDetails = (id) => {
     $.ajax({
-        url: 'admin/dashboard/get-id-holiday-details',
+        url: 'dashboard/get-id-holiday-details',
         method: 'GET',
         data: { holiday_id: id },
         success: function (response) {
@@ -425,7 +425,7 @@ const regularizeDate = (selectedDate, ids) => {
 
 const getEmployeeAttendenceDetails = (selectedDate) => {
     $.ajax({
-        url: 'admin/dashboard/get-employee-details',
+        url: 'dashboard/get-employee-details',
         method: 'GET',
         data: {
             regularize_date: selectedDate
