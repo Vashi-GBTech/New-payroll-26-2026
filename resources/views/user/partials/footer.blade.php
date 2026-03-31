@@ -48,50 +48,50 @@
             <div class="footer-logo">
                 <img src="/assets/frontend/images/GBtechlogo.jpg" alt="Gold Berries Logo" class="footer-logo-img" style="height: 60px; width: auto;">
             </div>
-            <p class="footer-text">Enterprise payroll management solutions.</p>
+            <p class="footer-text">{{ __('Enterprise payroll management solutions.')}}</p>
         </div>
         <div class="footer-section" style="flex: 1; min-width: 140px;">
             <h4>PRODUCT</h4>
             <ul>
-                <li><a href="{{ route('product') }}" class="footer-link">Product Features</a></li>
-                <li><a href="{{ route('features') }}" class="footer-link">All Features</a></li>
-                <li><a href="#modules" class="footer-link">Core Modules</a></li>
+                <li><a href="{{ route('product') }}" class="footer-link">{{ __('Product Features')}}</a></li>
+                <li><a href="{{ route('features') }}" class="footer-link">{{ __('All Features')}}</a></li>
+                <li><a href="#integrations" class="footer-link">{{ __('Integrations')}}</a></li>
             </ul>
         </div>
         <div class="footer-section" style="flex: 1; min-width: 140px;">
             <h4>COMPANY</h4>
             <ul>
-                <li><a href="{{ route('about') }}" class="footer-link">About Us</a></li>
-                <li><a href="{{ route('contact') }}" class="footer-link">Contact</a></li>
-                <li><a href="#integrations" class="footer-link">Integrations</a></li>
-                <li><a href="#partners" class="footer-link">Partners</a></li>
+                <li><a href="{{ route('about') }}" class="footer-link">{{ __('About Us')}}</a></li>
+                <li><a href="{{ route('contact') }}" class="footer-link">{{ __('Contact')}}</a></li>
+                <li><a href="#blog" class="footer-link">{{ __('Blog')}}</a></li>
+                <li><a href="#careers" class="footer-link">{{ __('Careers')}}</a></li>
             </ul>
         </div>
         <div class="footer-section" style="flex: 1; min-width: 140px;">
             <h4>RESOURCES</h4>
             <ul>
-                <li><a href="#docs" class="footer-link">Documentation</a></li>
-                <li><a href="#help" class="footer-link">Help Center</a></li>
-                <li><a href="#community" class="footer-link">Community</a></li>
-                <li><a href="#status" class="footer-link">System Status</a></li>
+                <li><a href="#docs" class="footer-link">{{ __('Documentation')}}</a></li>
+                <li><a href="#help" class="footer-link">{{ __('Help Center')}}</a></li>
+                <li><a href="#community" class="footer-link">{{ __('Community')}}</a></li>
+                <li><a href="#status" class="footer-link">{{ __('System Status')}}</a></li>
             </ul>
         </div>
         <div class="footer-section" style="flex: 1; min-width: 140px;">
             <h4>LEGAL</h4>
             <ul>
-                <li><a href="#privacy" class="footer-link">Privacy Policy</a></li>
-                <li><a href="#terms" class="footer-link">Terms of Service</a></li>
-                <li><a href="#security" class="footer-link">Security</a></li>
-                <li><a href="#compliance" class="footer-link">Compliance</a></li>
+                <li><a href="#privacy" class="footer-link">{{ __('Privacy Policy')}}</a></li>
+                <li><a href="#terms" class="footer-link">{{ __('Terms of Service')}}</a></li>
+                <li><a href="#security" class="footer-link">{{ __('Security')}}</a></li>
+                <li><a href="#compliance" class="footer-link">{{ __('Compliance')}}</a></li>
             </ul>
         </div>
     </div>
     <div class="footer-bottom" style="padding-top: 1.5rem; margin-top: 1.5rem; border-top: 1px solid rgba(212, 175, 55, 0.15); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; width: 100%; max-width: 1400px; margin-left: auto; margin-right: auto;">
-        <p style="color: #64748b; margin: 0; text-align: center;">&copy; 2026 Gold Berries Technology. All rights reserved.</p>
+        <p style="color: #64748b; margin: 0; text-align: center;">&copy; {{ __('2026 Gold Berries Technology. All rights reserved.')}}</p>
         <div class="footer-socials" style="gap: 1.5rem; display: flex; justify-content: center;">
-            <a href="#linkedin" class="social-link">LinkedIn</a>
-            <a href="#twitter" class="social-link">Twitter</a>
-            <a href="#facebook" class="social-link">Facebook</a>
+            <a href="#linkedin" class="social-link">{{ __('LinkedIn')}}</a>
+            <a href="#twitter" class="social-link">{{ __('Twitter')}}</a>
+            <a href="#facebook" class="social-link">{{ __('Facebook')}}</a>
         </div>
     </div>
 </footer>

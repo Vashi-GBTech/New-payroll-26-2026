@@ -23,9 +23,13 @@ class AuthController extends Controller {
             $data = $request->all();
             $validation = $this->loginValidationTrait($data);
             if(!empty($validation)) {
-                return $validation;
+                return response()->json([
+                    'success' => false,
+                    'errors' => $validation
+                ]);
             }
             return $this->loginTrait($data);
+
         } catch (\Exception $e) {
             return redirect()->back()->with("error", $e->getMessage());
         }
@@ -60,7 +64,6 @@ class AuthController extends Controller {
                     'message' => 'Incorrect OTP'
                 ]);
             }
-
         } catch(Throwable $e) {
 
         }

@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use Throwable;
 use Exception;
-use Pusher\Pusher;
+// use Pusher\Pusher;
 use App\Models\Logs;
 use App\Models\User;
 use App\Mail\OtpVerified;
@@ -27,98 +27,22 @@ trait CommanFunctionTrait {
         // $this->sendNotification($action, $type, $model);
     }
 
-    public function loginTrait1($data) {
-        try {
-            $result = User::where("email", $data['login'])->orWhere('phone', $data['login'])->orWhere("username", $data['login'])->first();
-            if($result) {
-                if ($result->status == 1 && $result->deleted_at == null && $result->login_status == 0){
-                    if(Hash::check($data['password'], $result->password)){
-                        $result->api_token = $this->generateTokenTrait();
-                        $result->save();
-                        $otp = $this->generateOtp();
-                        $this->loginOtpTrait($result->id, $result->email, $otp, $result->name);
-                        return response()->json([
-                            'success' => true,
-                            'code' => 200,
-                            'message' => 'Generate otp successfully',
-                            'data' => [
-                                'otp_verified' => $result->is_otp_verified,
-                                'api_token' => $result->api_token,
-                                'user_email' => $result->email,
-                                'user_id' => $result->id,
-                                'name' => $result->name,
-                            ]
-                        ]);
-
-                    } else {
-                        return response()->json([
-                            'success' => false,
-                            'code' => 201,
-                            'message' => 'Incorrect Password',
-                        ]);
-                    }
-                } else {
-                    if ($result->status != 1) {
-                        return response()->json([
-                            'success' => false,
-                            'code' => 202,
-                            'message' => 'You have been deactivated from logging into the panel. Kindly contact the admin to reinstate your privileges',
-                        ]);
-                    } elseif (!is_null($result->deleted_at)) {
-                        return response()->json([
-                            'success' => false,
-                            'code' => 203,
-                            'message' => 'User Deleted',
-                        ]);
-                    } elseif ($result->login_status == 1 && $result->is_otp_verified == 1) {
-                        return response()->json([
-                            'success' => false,
-                            'code' => 204,
-                            'message' => 'Already User Login',
-                        ]);
-                    } else {
-                        return response()->json([
-                            'success' => false,
-                            'code' => 205,
-                            'message' => 'You are not authorised to log into Admin Panel.',
-                        ]);
-                    }
-                }
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'code' => 206,
-                    'message' => 'User not found in our records',
-                ]);
-            }
-        } catch (Exception $e) { 
-            return response()->json([
-                "success"=> false,
-                "code"=> 422,
-                "message"=> $e->getMessage()
-            ]);
-        }
-    }
 
     public function loginTrait($data) {
         try {
-            $result = User::where("email", $data['login'])
-                ->orWhere('phone', $data['login'])
-                ->orWhere("username", $data['login'])
-                ->first();
-
+            $result = User::where("email", $data['login'])->orWhere('phone', $data['login'])->orWhere("username", $data['login'])->first();
             if ($result) {
                 if ($result->status == 1 && $result->deleted_at == null) {
                     if (Hash::check($data['password'], $result->password)) {
-                        Auth::login($result);
+                        Auth::login($result, true);
                         $result->api_token = $this->generateTokenTrait();
                         $result->save();
                         return response()->json([
                             'success' => true,
                             'code' => 200,
                             'message' => 'Login successful',
+                            'redirect' => route('dashboard') 
                         ]);
-
                     } else {
                         return response()->json([
                             'success' => false,
@@ -126,7 +50,6 @@ trait CommanFunctionTrait {
                             'message' => 'Incorrect Password',
                         ]);
                     }
-
                 } else {
                     if ($result->status != 1) {
                         return response()->json([
@@ -148,7 +71,6 @@ trait CommanFunctionTrait {
                         ]);
                     }
                 }
-
             } else {
                 return response()->json([
                     'success' => false,
@@ -156,7 +78,6 @@ trait CommanFunctionTrait {
                     'message' => 'User not found',
                 ]);
             }
-
         } catch (Exception $e) {
             return response()->json([
                 "success"=> false,
@@ -165,6 +86,7 @@ trait CommanFunctionTrait {
             ]);
         }
     }
+
 
     private function loginOtpTrait($userId, $email, $otp, $name) {
         try {
@@ -181,7 +103,6 @@ trait CommanFunctionTrait {
                 $loginOtp->created_by = $userId;
                 $this->sendOtpOnEmailTrait($userId, $email, $otp);
                 $loginOtp->save();
-
             }
             return true;
         } catch (Exception $e) {
@@ -190,13 +111,16 @@ trait CommanFunctionTrait {
         }
     }
 
+
     private function generateOtp() {
         return rand(100000, 999999);
     }
 
+
     private function generateTokenTrait() {
         return bin2hex(random_bytes(16));
     }
+
 
     private function sendOtpOnEmailTrait($name, $email, $otp) {
         try {
@@ -223,9 +147,9 @@ trait CommanFunctionTrait {
         try {
             $user = Auth::user();
             if ($user) {
-                $user->login_status = 0;
+                // $user->login_status = 0;
                 $user->api_token = null;
-                $user->is_otp_verified = 0;
+                // $user->is_otp_verified = 0;
                 $user->save();
                 $this->storeLog('Logout', 'logout', 'User');
                 Auth::logout();
@@ -299,21 +223,21 @@ trait CommanFunctionTrait {
 
 
     public function sendNotification($action, $type, $model) {
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            [
-                'cluster' => env('PUSHER_APP_CLUSTER'),
-                'useTLS' => true,
-            ]
-        );
+        // $pusher = new Pusher(
+        //     env('PUSHER_APP_KEY'),
+        //     env('PUSHER_APP_SECRET'),
+        //     env('PUSHER_APP_ID'),
+        //     [
+        //         'cluster' => env('PUSHER_APP_CLUSTER'),
+        //         'useTLS' => true,
+        //     ]
+        // );
         $data = [
             'action' => $action,
             'type' => $type,
             'model' => $model,
         ];
-        $pusher->trigger('my-channel', 'my-event', $data);
+        // $pusher->trigger('my-channel', 'my-event', $data);
         return response()->json(['success' => true]);
     }
 

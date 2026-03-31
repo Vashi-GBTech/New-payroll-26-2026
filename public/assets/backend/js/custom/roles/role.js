@@ -1,47 +1,17 @@
 "use strict";
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    }
-});
+const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+if (tokenMeta) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': tokenMeta.getAttribute('content')
+        }
+    });
+} else {
+    console.error("CSRF token meta tag not found");
+}
 
 
 // Role Js Start --
- "use strict";
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    }
-});
-
-
-// Role Js Start --
-    // function fetchRoles() {
-    //     $.ajax({
-    //         url: 'admin/role',
-    //         method: "GET",
-    //         success: function(res) {
-    //             let tbody = '';
-    //             if(res) {
-    //                 $.each(res, function(_, role) {
-    //                     tbody += '<tr>';
-    //                     tbody += '<td class="text-center">' + role.id + '</td>';
-    //                     tbody += '<td class="text-center">' + role.name + '</td>';
-    //                     tbody += '<td class="text-center">';
-    //                     tbody += '<button class="btn btn-sm btn-primary editRole" data-id="'+role.id+'">Edit</button> ';
-    //                     tbody += '<button class="btn btn-sm btn-danger deleteRole" data-id="'+role.id+'">Delete</button>';
-    //                     tbody += '</td>';
-    //                     tbody += '</tr>';
-    //                 });
-    //             } else {
-    //                 tbody = '<tr><td colspan="3" class="text-center">No roles found.</td></tr>';
-    //             }
-    //             $('#kt_table tbody').html(tbody);
-    //             $('#completeValue').text(res.total || res.length);
-    //         }   
-    //     });
-    // }
-
     function saveRole(e) {
         e.preventDefault();
         $('.roleBtn').prop('disabled', true);
@@ -56,13 +26,12 @@ $.ajaxSetup({
 
     function submitRole(roleName) {
         let role = roleName;
-        let url = 'admin/role/save';
+        let url = "role/save";
         $('#addRole').modal('hide');
         $.ajax({
             url: url,
             method: "POST",
             data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
                 role: role
             },
             success: function(res) {
@@ -71,7 +40,7 @@ $.ajaxSetup({
                     $('#roleName').val('');
                     validationAlert('Role created', 'Successfully created a new role.', 'success', 2000, 'OK');
                     setTimeout(function() {
-                        // fetchRoles();
+                        // loadDatabaseRecord();
                     }, 200);
                 }
             },
@@ -116,7 +85,6 @@ $.ajaxSetup({
             url: url,
             method: "POST",
             data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
                 role: role,
                 id: id
             },
@@ -126,7 +94,7 @@ $.ajaxSetup({
                     $('#updateRoleName').val('');
                     validationAlert('Role updated', 'Successfully updated the role.', 'success', 2000, false);
                     setTimeout(function() {
-                        // fetchRoles();
+                        // loadDatabaseRecord();
                     }, 200);
                 }
             },
@@ -141,90 +109,6 @@ $.ajaxSetup({
         });
     }
 // Role Js End --
-
-
-// Module JS Start --
-    function saveModule(e) {
-        e.preventDefault();
-        $('.moduleBtn').prop('disabled', true);
-        let moduleName = $('#moduleName').val();
-        if(moduleName === '') {
-            validationAlert('Missing module name', 'Please enter a module name.', 'error', 2000, 'OK');
-            $('.moduleBtn').prop('disabled', false);
-            return false;
-        }
-        submitModule(moduleName)
-    }
-
-    function submitModule(moduleName) {
-        $('.moduleBtn').prop('disabled', false);
-        $('#moduleName').val('');
-        let url = 'admin/module/save';
-        let indexUrl = 'admin/module';
-        let columns = ['id', 'name', 'action']; // yaha aapke module table ke columns
-        let tableId = '#moduleTable'; // yaha aapke module table ka ID
-        $('#addModule').modal('hide');
-        $.ajax({
-            url: url,
-            method: 'POST',
-            data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
-                name: moduleName
-            },
-            success: function(res) {
-                if(res.success === true) {
-                    validationAlert('Role created', 'Successfully created a new module.', 'success', 2000, 'OK');
-                    setTimeout(function() {
-                        loadDatabaseRecord(
-                            indexUrl, columns, tableId,
-                            function (btn) {   // edit function
-                                let id = $(btn).data('id');
-                                let name = $(btn).data('name');
-                                $('#editModuleId').val(id);
-                                $('#editModuleName').val(name);
-                            },
-                            function (e, btn) {
-                                let id = $(btn).data('id');
-                                if(confirm('Delete this record?')) {
-                                    // ajax call for delete
-                                    console.log('Deleting', id);
-                                }
-                            },
-                            function (e, btn) {  // show function
-                                let id = $(btn).data('id');
-                                let name = $(btn).data('name');
-                                alert('Showing record: ' + id + ' - ' + name);
-                            },
-                            '#editModule' // edit modal id
-                        );
-                    }, 200);
-                }
-            },
-            error: function(xhr) {
-                let response = xhr.responseJSON;
-                if (response) {
-                    switch (response.error) {
-                        case 1:
-                            validationAlert('Validation Error', response.message.errors?.name?.[0] || 'Validation failed', 'error', 5000, "OOP's");
-                            break;
-                        case 2:
-                            validationAlert('Error', 'Url name and module name are not match.', 'error', 5000, "OOP's");
-                            break;
-                        case 3:
-                            validationAlert('Duplicate', 'Module name already exists, please try another one.', 'error', 5000, "OOP's");
-                            break;
-                        default:
-                            validationAlert('Error', response.message || 'Something went wrong.', 'error', 5000, "OOP's");
-                            break;
-                    }
-                } else {
-                    validationAlert('Error', 'Unexpected server error', 'error', 5000, "OOP's");
-                }
-            }
-        });
-    }
-
-// Module JS End --
 
 
 // Permission Js Start --
@@ -553,96 +437,6 @@ $.ajaxSetup({
     }
 
 // Role permission mapping js end --
-
-
-
-
-
-// Route permission mapping js start --
-    $(document).ready(function() {
-        $('#routeId').select2({
-            placeholder: "Select Routes",
-            closeOnSelect: false,
-            allowClear: true
-        });
-
-        $('#routeUpdateId').select2({
-            placeholder: "Select Routes",
-            closeOnSelect: false,
-            allowClear: true
-        });
-    });
-
-    function saveRoutePermissionMapping(event) {
-        event.preventDefault();
-        $('#createRoutePermissionMappingBtn').prop('disabled', true);
-        let permissionId = document.getElementById('permissionId').value;
-        let routeIds = $('#routeId').val() || [];
-
-        if (permissionId === '') {
-            validationAlert('Missing permission', 'Please select a permission.', 'error', 2000, 'OK');
-            $('#createRoutePermissionMappingBtn').prop('disabled', false);
-            return false;
-        }
-        if (routeIds.length === 0) {
-            validationAlert('Missing route', 'Please select at least one route.', 'error', 2000, 'OK');
-            $('#createRoutePermissionMappingBtn').prop('disabled', false);
-            return false;
-        }
-
-        saveRoutePermission(permissionId, routeIds);
-    }
-
-    function saveRoutePermission(permissionId, routeIds) {
-        $('#addRolePermissionMapping').modal('hide');
-        let url = 'admin/route-permission-mapping/save';
-        $.ajax({
-            url: url,
-            method: "POST",
-             data: {
-                _token: $('meta[name="csrf-token"]').attr('content'),
-                permission_id: permissionId,
-                route_name: routeIds
-            },
-            success: function(res) {
-                if (res.status === 'success') {
-                    $('#createRoutePermissionMappingBtn').prop('disabled', false);
-                    validationAlert('Route Permission Mapping', 'Successfully assigned routes to the permission.', 'success', 2000, "OK");
-                    $('#routeId').val('').trigger('change');
-                    document.getElementById('permissionId').value = '';
-                    document.querySelectorAll('input[name="route_name[]"]').forEach(function(checkbox) {
-                        checkbox.checked = false;
-                    });
-                    $('#addRoutePermissionMapping').modal('hide');
-                }
-            },
-            error: function(xhr) {
-                $('#createRolePermissionMappingBtn').prop('disabled', false);
-                if (xhr.responseText) {
-                    validationAlert('Error', xhr.responseJSON.message, 'error', 5000, "OOP's");
-                }
-            }
-        });
-    }
-
-    function editRoutePermissionMapping(button) {
-        var id = button.getAttribute('data-id');
-        var permissionId = button.getAttribute('data-permission_id');
-        var routeNames = JSON.parse(button.getAttribute('data-route_name')) || [];
-        // document.getElementById('hiddenRoutePermissionId').value = id;
-        // document.getElementById('permissionUpdateId').value = permissionId;
-        // $('#routeUpdateId').val(routeNames).trigger('change');
-
-        // Hidden input me id set karo
-        document.querySelector("#editRoutePermission input[name='id']").value = id;
-
-        // Permission select set karo
-        $("#permissionUpdateId").val(permissionId).trigger("change");
-
-        // Route select set karo (multiple)
-        $("#routeUpdateId").val(routeNames).trigger("change");
-    }
-// Route permission mapping js end --
 
 
 

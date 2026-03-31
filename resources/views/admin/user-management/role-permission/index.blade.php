@@ -185,9 +185,6 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-md-6 mb-4" id="ngoCenterDiv">
-                                                </div>
-
                                                 <div class="col-md-12 mb-4 mt-3" id="ngoCenterDiv">
                                                     <label class="required fs-6 fw-semibold mb-2">{{ __('Permission')}}</label>
                                                     <div class="form-group">

@@ -4,12 +4,12 @@ namespace App\Traits;
 
 use Exception;
 use Throwable;
-use App\Models\Admin\Role;
-use Illuminate\Support\Str;
-use App\Models\Admin\Department;
-use App\Models\Admin\Designation;
-use App\Models\Admin\Permission;
+use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Str;
+use App\Models\Department;
+use App\Models\Permission;
+use App\Models\Designation;
 
 trait ValidationTrait {
     // User Validation Trait
@@ -100,7 +100,6 @@ trait ValidationTrait {
                 'password.min' => 'The password may not be less than 3 characters.',
                 'password.max' => 'The password may not be greater than 255 characters.',
             ];
-            
             $errors = [];
 
             foreach ($rules as $field => $fieldRules) {
@@ -125,7 +124,7 @@ trait ValidationTrait {
                     } 
                 }
             }
-
+            
             $email = User::where("email", $data["login"])->orWhere('phone', $data['login'])->orWhere("username", $data["login"])->first();
 
             if (!$email) {
@@ -136,7 +135,6 @@ trait ValidationTrait {
             if (!empty($errors)) {
                 return  $errors;
             }
-
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage()

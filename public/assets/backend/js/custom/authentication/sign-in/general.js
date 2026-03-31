@@ -1,21 +1,27 @@
 "use strict";
 
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    }
-});
+const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+if (tokenMeta) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': tokenMeta.getAttribute('content')
+        }
+    });
+} else {
+    console.error("CSRF token meta tag not found");
+}
 
 
 var KTModalAdd = function () {
-    var t, e, o, n, r, i, submitBtn;
+    var form, submitBtn, validator;
     return {
         init: function () {
-            r = document.querySelector("#kt_sign_in_form"),
-            submitBtn = $("#kt_sign_in_submit");
-            t = r.querySelector("#kt_sign_in_submit"),
-            n = FormValidation.formValidation(r, {
+            form = document.querySelector("#kt_sign_in_form");
+            submitBtn = document.querySelector("#kt_sign_in_submit");
+            if (!form) return;
+            // Form Validation Init
+            validator = FormValidation.formValidation(form, {
                 fields: {
                     login: {
                         validators: {
@@ -23,9 +29,8 @@ var KTModalAdd = function () {
                                 message: "Login Id is required"
                             },
                             regexp: {
-                                // Accepts email, 10-digit number, or username (alphanumeric, dots, underscores, min 3 chars)
-                                regexp: /(^[^\s@]+@[^\s@]+\.[^\s@]+$)|(^[0-9]{10}$)|(^[a-zA-Z0-9._]{10,}$)/,
-                                message: "Please enter a valid login id (email, phone, or username)"
+                                regexp: /(^[^\s@]+@[^\s@]+\.[^\s@]+$)|(^[0-9]{10}$)|(^[a-zA-Z0-9._]{3,}$)/,
+                                message: "Enter valid email / phone / username"
                             }
                         }
                     },
@@ -38,115 +43,65 @@ var KTModalAdd = function () {
                     }
                 },
                 plugins: {
-                    trigger: new FormValidation.plugins.Trigger,
+                    trigger: new FormValidation.plugins.Trigger(),
                     bootstrap: new FormValidation.plugins.Bootstrap5({
-                        rowSelector: ".fv-row",
+                        rowSelector: ".form-group",
                         eleInvalidClass: "",
                         eleValidClass: ""
                     })
                 }
-            }),
-            t.addEventListener("click", function (n) {
-                n.preventDefault();
-                n.stopPropagation();
-                var loginn = document.getElementById("Login").value;
-                var passwordd = document.getElementById("Password").value;
-                $.ajax({
-                    type: "POST",
-                    url: "/auth",
-                    data: {
-                        login: loginn,
-                        password: passwordd
-                    },
-                    dataType: "json",
-                    success: function (response) {
-                        console.log(response);
-                        
-                        if (response.success == true && response.code == 200) {
-                            $("#kt_sign_in_submit").prop('disabled', true);
-                            swal.fire({
-                                text: "Your credentials matches our record",
-                                icon: "success",
-                                showConfirmButton: false
-                            }).then(function () {
-                                KTUtil.scrollTop();
-                            });
-                            const work = async () => {
-                                await sleep(1000);
-                                swal.close();
-                                // if(response.data.otp_verified == 0) {
-                                //     $('#otpModal').modal('show');
-                                //     $('#loggedInUserId').val(response.data.user_id);
-                                // }
-                                window.location.href = "/admin/dashboard";
-                            };
-                            work();
-                        } else if (response.success == false && response.code == 201) {
-                            $("#kt_sign_in_submit").prop('disabled', false);
-                            swal.fire({
-                                text: "Password is incorrect",
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Try Again",
-                                customClass: {
-                                    confirmButton: "btn font-weight-bold btn-light-primary"
+            });
+
+            // FORM SUBMIT (BEST PRACTICE)
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                validator.validate().then(function (status) {
+                    if (status === 'Valid') {
+                        let loginn = document.getElementById("login").value;
+                        let passwordd = document.getElementById("password").value;
+                        // Disable button
+                        submitBtn.disabled = true;
+                        $.ajax({
+                            type: "POST",
+                            url: "/auth",
+                            data: {
+                                login: loginn,
+                                password: passwordd,
+                                _token: $('meta[name="csrf-token"]').attr('content') // ✅ CSRF FIX
+                            },
+                            dataType: "json",
+                            success: function (response) {
+                                console.log(response);
+                                if (response.success && response.code == 200) {
+                                    validationAlert("Successful", "Login successful", "success", 1500, false);
+                                    setTimeout(function () {
+                                        window.location.href = response.redirect;
+                                    }, 1000);
+
+                                } else if (response.code == 201) {
+                                    validationAlert("Error", "Incorrect password", "error");
+
+                                } else if (response.code == 202) {
+                                    validationAlert("Error", "User deactivated", "error");
+
+                                } else if (response.code == 203) {
+                                    validationAlert("Error", "User deleted or not found", "error");
+
+                                } else if (response.code == 204) {
+                                    validationAlert("Error", "Already logged in", "error");
+
+                                } else {
+                                    validationAlert("Error", "Something went wrong", "error");
+
                                 }
-                            }).then(function () {
-                                KTUtil.scrollTop();
-                            });
-                        } else if (response.success == false && response.code == 202) {
-                            $("#kt_sign_in_submit").prop('disabled', false);
-                            swal.fire({
-                                text: "You have been deactivated from logging into the panel. Kindly contact the admin to reinstate your privileges.",
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Try Again",
-                                customClass: {
-                                    confirmButton: "btn font-weight-bold btn-light-primary"
-                                }
-                            }).then(function () {
-                                KTUtil.scrollTop();
-                            });
-                        } else if (response.success == false && response.code == 203) {
-                            $("#kt_sign_in_submit").prop('disabled', false);
-                            swal.fire({
-                                text: "User not found or remove in our records",
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Try Again",
-                                customClass: {
-                                    confirmButton: "btn font-weight-bold btn-light-primary"
-                                }
-                            }).then(function () {
-                                KTUtil.scrollTop();
-                            });
-                        } else if (response.success == false && response.code == 204) {
-                            $("#kt_sign_in_submit").prop('disabled', false);
-                            swal.fire({
-                                text: "User is already logged in, please first logout than try again.",
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Try Again",
-                                customClass: {
-                                    confirmButton: "btn font-weight-bold btn-light-primary"
-                                }
-                            }).then(function () {
-                                KTUtil.scrollTop();
-                            });
-                        } else if (response.success == false && response.code == 203) {
-                            $("#kt_sign_in_submit").prop('disabled', false);
-                            swal.fire({
-                                text: "You are not authorised to log into Admin Panel.",
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Try Again",
-                                customClass: {
-                                    confirmButton: "btn font-weight-bold btn-light-primary"
-                                }
-                            }).then(function() {
-                                KTUtil.scrollTop();
-                            });
-                        }
+                                submitBtn.disabled = false;
+                            },
+                            error: function (xhr) {
+                                console.log(xhr);
+                                validationAlert("Error", "Server error", "error");
+                                submitBtn.disabled = false;
+                            }
+                        });
                     }
                 });
             });
@@ -155,10 +110,10 @@ var KTModalAdd = function () {
 }();
 
 
+// INIT
 KTUtil.onDOMContentLoaded(function () {
     KTModalAdd.init();
 });
-
 
 function verifyOtp() {
     let otp = document.getElementById('otpCode').value;
@@ -180,7 +135,7 @@ function verifyOtp() {
                     timer: 1000,
                     showConfirmButton: false
                 }).then(() => {
-                    window.location.href = "/admin/dashboard";
+                    window.location.href = "/dashboard";
                 });
             } else {
                 Swal.fire({
