@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/components.css') }}">
     <!-- Theme Toggle Logic -->
     <script src="{{ asset('assets/frontend/js/theme.js') }}"></script>
+    @yield('styles')
 </head>
 <body>
     @include('user.partials.header')
@@ -16,6 +17,7 @@
         @yield('content')
     </main>
     @include('user.partials.footer')
+    @yield('scripts')
     <script>
         // Initialize on DOM load
         document.addEventListener('DOMContentLoaded', function() {
