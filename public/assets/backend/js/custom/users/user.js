@@ -6,6 +6,9 @@ $.ajaxSetup({
     }
 });
 
+let addMoreRows=2;
+
+
 // Bank Details Management
 function saveUserForm(event) {
     event.preventDefault();
@@ -120,7 +123,7 @@ function fetchUserData() {
     })
 }
 
-let addMoreRows=2;
+
 function showUploadDocumentImage(input) {
     let files = input.files[0];
     let previewContainer = input.closest('.previewContainer');
