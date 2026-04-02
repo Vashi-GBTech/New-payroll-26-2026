@@ -1,7 +1,5 @@
-
-user create blade page --
-@extends('layouts.admin')
-@section('title') {{ __('Employee')}} @endsection
+@extends('admin.layouts.admin')
+@section('title') {{ __('Employee Creation')}} @endsection
 
 @section('header')
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -72,9 +70,6 @@ user create blade page --
                                                 <label class="required fs-6 fw-semibold mb-2">{{ __('Role')}}</label>
                                                 <select name="role_id" class="form-select" id="roleId" data-control="select2" data-placeholder="Select role name">
                                                     <option></option>
-                                                    @foreach($roles as $role)
-                                                        <option value="{{ $role->role_id }}">{{ $role->role_name }}</option>
-                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -140,7 +135,7 @@ user create blade page --
             <!-- Experience Details -->
             <div class="tab-pane" id="tab_1_2">
                 <p>{{ __('Experience Details Content')}}</p>
-                <form id="experienceDetailsForm" action="{{ route('admin.user.save') }}" method="POST" enctype="multipart/form-data">
+                <form id="experienceDetailsForm" action="{{ route('user.save') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-lg-12" id="experienceDetailsDiv">
@@ -206,7 +201,7 @@ user create blade page --
 
             <!-- Bank -->
             <div class="tab-pane" id="tab_1_3">
-                <form id="bankDetailsForm" action="{{ route('admin.user.save') }}" method="POST" enctype="multipart/form-data">
+                <form id="bankDetailsForm" action="{{ route('user.save') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-lg-12" id="bankDetailsDiv">
@@ -275,7 +270,7 @@ user create blade page --
                 <div class="tab-content">
                     <!-- performance allowance tab -->
                     <div class="tab-pane fade show active" id="performance_allowance">
-                        <form id="punchInForm" action="{{ route('admin.user.save') }}" method="POST" enctype="multipart/form-data">
+                        <form id="punchInForm" action="{{ route('user.save') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
@@ -374,7 +369,7 @@ user create blade page --
 
                     <!-- staff loan tab -->
                     <div class="tab-pane fade" id="staff_loan">
-                        <form id="punchInForm" action="{{ route('admin.user.save') }}" method="POST" enctype="multipart/form-data">
+                        <form id="punchInForm" action="{{ route('user.save') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
@@ -484,7 +479,7 @@ user create blade page --
 
                     <!-- salary details tab -->
                     <div class="tab-pane fade" id="salary_details">
-                        <form id="punchInForm" action="{{ route('admin.user.save') }}" method="POST" enctype="multipart/form-data">
+                        <form id="punchInForm" action="{{ route('user.save') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
@@ -550,7 +545,7 @@ user create blade page --
 
                     <!-- deduction details tab -->
                     <div class="tab-pane fade" id="deduction_details">
-                        <form id="punchInForm" action="{{ route('admin.user.save') }}" method="POST" enctype="multipart/form-data">
+                        <form id="punchInForm" action="{{ route('user.save') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
@@ -643,7 +638,7 @@ user create blade page --
                 <div class="tab-content">
                     <!-- Punch In Applicable Tab -->
                     <div class="tab-pane fade show active" id="punchInTab">
-                        <form id="punchInForm" action="{{ route('admin.user.save') }}" method="POST" enctype="multipart/form-data">
+                        <form id="punchInForm" action="{{ route('user.save') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
@@ -977,7 +972,7 @@ user create blade page --
             <!-- Leave Details -->
             <div class="tab-pane" id="tab_1_6">
                 <div class="tab-pane fade show active" id="leaveFormTab">
-                    <form id="leaveForm" action="{{ route('admin.user.save') }}" method="POST" enctype="multipart/form-data">
+                    <form id="leaveForm" action="{{ route('user.save') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
@@ -1212,7 +1207,7 @@ user create blade page --
                 <div class="tab-content">
                     <!-- Asset Tab -->
                     <div class="tab-pane fade show active" id="assetTab">
-                        <form id="punchInForm" action="{{ route('admin.user.save') }}" method="POST" enctype="multipart/form-data">
+                        <form id="punchInForm" action="{{ route('user.save') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
@@ -1241,7 +1236,7 @@ user create blade page --
 
                     <!-- Sub Asset Tab -->
                     <div class="tab-pane fade" id="subAssetTab">
-                        <form id="punchInForm" action="{{ route('admin.user.save') }}" method="POST" enctype="multipart/form-data">
+                        <form id="punchInForm" action="{{ route('user.save') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
@@ -1280,7 +1275,7 @@ user create blade page --
                     
                     <!-- Sub Asset Tab -->
                     <div class="tab-pane fade" id="assignedAssetTab">
-                        <form id="punchInForm" action="{{ route('admin.user.save') }}" method="POST" enctype="multipart/form-data">
+                        <form id="punchInForm" action="{{ route('user.save') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
@@ -1518,7 +1513,7 @@ user create blade page --
 
             <!-- Document Upload -->
             <div class="tab-pane" id="tab_1_8">
-                <form id="documentDetailsForm" action="{{ route('admin.user.save') }}" method="POST" enctype="multipart/form-data">
+                <form id="documentDetailsForm" action="{{ route('user.save') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-lg-12" id="documentDetailsDiv">
@@ -1589,7 +1584,7 @@ user create blade page --
 
             <!-- Document Upload -->
             <div class="tab-pane" id="tab_1_9">
-                <form id="punchInForm" action="{{ route('admin.user.save') }}" method="POST" enctype="multipart/form-data">
+                <form id="punchInForm" action="{{ route('user.save') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
@@ -1652,9 +1647,9 @@ user create blade page --
 @endsection
 
 @section('scripts')
-<script src="{{ asset('assets/js/jquery-date.js') }}"></script>
-<script src="{{ asset('assets/js/custom/comman.js') }}"></script>
-<script src="{{ asset('assets/js/custom/users/user.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/jquery-date.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/custom/comman.js') }}"></script>
+    <script src="{{ asset('assets/backend/js/custom/users/user.js') }}"></script>
 @endsection
 
 

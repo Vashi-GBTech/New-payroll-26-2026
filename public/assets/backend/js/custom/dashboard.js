@@ -61,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     let day = info.date.getDay(); // 0 = Sunday, 6 = Saturday
                         if (day === 0 || day === 6) {
                         info.el.style.backgroundColor = day === 0 ? '#fd4747ff' : (day === 6 ? '#fd4747ff' :'#e9ecef');
-
                         // Naya span add kar rahe hain jisme "Weekend" likha hai
                         let weekendLabel = document.createElement('div');
                         weekendLabel.textContent = 'Weekend';
@@ -82,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     let holidayId = matchedHoliday ? matchedHoliday.id : null;
                     let day = info.date.getDay();
                     let isWeekend = (day === 0 || day === 6);
-
                     if (matchedHoliday || isWeekend) {
                         if (matchedHoliday) {
                             showHolidayDetails(holidayId); // ← yahan se ID bhej do
@@ -91,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                         return;
                     }
-
                     // Normal working date par aapka purana attendance logic chalega
                     handleDateClick(info);
                 },

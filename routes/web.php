@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserOnboardingController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\AuthController;
@@ -34,6 +35,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('perm-save', [RoleController::class, 'savePermission'])->name('permission.save');
         Route::post('perm-update', [RoleController::class, 'updatePermission'])->name('permission.update');
     });
+
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('/', [UserOnboardingController::class, 'index'])->name('user');
+        Route::get('create', [UserOnboardingController::class, 'create'])->name('user.create');
+        Route::post('save', [UserOnboardingController::class, 'save'])->name('user.save');
+        Route::post('update', [UserOnboardingController::class, 'update'])->name('user.update');
+        Route::post('delete', [UserOnboardingController::class, 'delete'])->name('user.delete');
+        Route::get('excel-sample-download', [UserOnboardingController::class, 'userExcelSampleDownload'])->name('user.excel_sample_download');
+        Route::post('bulk-upload', [UserOnboardingController::class, 'userBlukUpload'])->name('user.bulk_upload');
+    });
+
 
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
