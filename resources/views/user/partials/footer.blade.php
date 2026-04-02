@@ -42,6 +42,21 @@
             padding: 0;
             list-style: none;
         }
+
+        .social-link {
+            font-size: 20px;
+            margin-right: 10px;
+            color: #333;
+            transition: 0.3s;
+        }
+
+        .social-link:hover {
+            color: #0077b5; /* LinkedIn color */
+        }
+
+        .social-link:nth-child(1):hover { color: #0077b5; } /* LinkedIn */
+        .social-link:nth-child(2):hover { color: #000000; } /* Twitter/X */
+        .social-link:nth-child(3):hover { color: #1877f2; } /* Facebook */
     </style>
     <div class="footer-content">
         <div class="footer-logo footer-brand">
@@ -86,12 +101,22 @@
             </ul>
         </div>
     </div>
-    <div class="footer-bottom" style="padding-top: 1.5rem; margin-top: 1.5rem; border-top: 1px solid rgba(212, 175, 55, 0.15); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; width: 100%; max-width: 1400px; margin-left: auto; margin-right: auto;">
-        <p style="color: #64748b; margin: 0; text-align: center;">&copy; {{ __('2026 Gold Berries Technology. All rights reserved.')}}</p>
-        <div class="footer-socials" style="gap: 1.5rem; display: flex; justify-content: center;">
-            <a href="#linkedin" class="social-link">{{ __('LinkedIn')}}</a>
-            <a href="#twitter" class="social-link">{{ __('Twitter')}}</a>
-            <a href="#facebook" class="social-link">{{ __('Facebook')}}</a>
+    <div class="footer-bottom">
+        <div class="col-md-6">
+            <p class="footer-bottom-text">&copy; {{ date('Y') }} GBtech. {{ __('All rights reserved.')}}</p>
+        </div>
+        <div class="col-md-6">
+            <a href="https://www.linkedin.com/in/your-profile" target="_blank" class="social-link">
+                <i class="fab fa-linkedin"></i>
+            </a>
+
+            <a href="https://twitter.com/your-profile" target="_blank" class="social-link">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+
+            <a href="https://facebook.com/your-profile" target="_blank" class="social-link">
+                <i class="fab fa-facebook"></i>
+            </a>
         </div>
     </div>
 </footer>

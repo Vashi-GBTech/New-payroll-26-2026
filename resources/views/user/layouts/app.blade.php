@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/landing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/animations.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/frontend/css/components.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <!-- Theme Toggle Logic -->
     <script src="{{ asset('assets/frontend/js/theme.js') }}"></script>
     @yield('styles')

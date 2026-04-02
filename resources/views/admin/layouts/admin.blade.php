@@ -81,6 +81,24 @@
 
                             <div class="menu-item">
                                 <a href="{{ url('role') }}" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('department*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Department')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="{{ url('role') }}" class="menu-item menu-accordion">
                                     <span class="menu-link {{Request::is('role*') ? 'active' : ''}}">
                                         <span class="menu-icon">
                                             <span class="svg-icon svg-icon-2">
@@ -96,10 +114,10 @@
                                     </span>
                                 </a>
                             </div>
-
+                            
                             <div class="menu-item">
                                 <a href="#" class="menu-item menu-accordion">
-                                    <span class="menu-link {{Request::is('payroll*') ? 'active' : ''}}">
+                                    <span class="menu-link {{Request::is('attendance*') ? 'active' : ''}}">
                                         <span class="menu-icon">
                                             <span class="svg-icon svg-icon-2">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -110,11 +128,11 @@
                                                 </svg>
                                             </span>
                                         </span>
-                                        <span class="menu-title">{{ __('Payroll')}}</span>
+                                        <span class="menu-title">{{ __('Attendance Management')}}</span>
                                     </span>
                                 </a>
                             </div>
-
+                            
                             <div class="menu-item">
                                 <a href="#" class="menu-item menu-accordion">
                                     <span class="menu-link {{Request::is('leave*') ? 'active' : ''}}">
@@ -129,24 +147,6 @@
                                             </span>
                                         </span>
                                         <span class="menu-title">{{ __('Leave Management')}}</span>
-                                    </span>
-                                </a>
-                            </div>
-
-                            <div class="menu-item">
-                                <a href="#" class="menu-item menu-accordion">
-                                    <span class="menu-link {{Request::is('event*') ? 'active' : ''}}">
-                                        <span class="menu-icon">
-                                            <span class="svg-icon svg-icon-2">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
-                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
-                                                </svg>
-                                            </span>
-                                        </span>
-                                        <span class="menu-title">{{ __('Event Management')}}</span>
                                     </span>
                                 </a>
                             </div>
@@ -171,7 +171,7 @@
 
                             <div class="menu-item">
                                 <a href="#" class="menu-item menu-accordion">
-                                    <span class="menu-link {{Request::is('activity*') ? 'active' : ''}}">
+                                    <span class="menu-link {{Request::is('task*') ? 'active' : ''}}">
                                         <span class="menu-icon">
                                             <span class="svg-icon svg-icon-2">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -182,7 +182,367 @@
                                                 </svg>
                                             </span>
                                         </span>
-                                        <span class="menu-title">{{ __('Daily Activity')}}</span>
+                                        <span class="menu-title">{{ __('Task Management')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('shift*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Shift Management')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+                            
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('holiday*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Holiday Management')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('salary*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Salary Structure')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('payslip*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Payslip Management')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('tax*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Tax Management')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('bonus*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Bonus & Incentives')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('reimbursement*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Reimbursements')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('service-requests*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Service Requests')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('travel-requests*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Travel Requests')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('asset-management*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Asset Management')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('document-management*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Document Management')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('performance*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Performance Management')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('appraisal*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Appraisal System')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('training*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Training & Development')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('meeting*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Meeting Management')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('internal-chat*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Internal Chat')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('policies*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Company Policies')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('audit-logs*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Audit Logs')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('settings*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Settings')}}</span>
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a href="#" class="menu-item menu-accordion">
+                                    <span class="menu-link {{Request::is('event*') ? 'active' : ''}}">
+                                        <span class="menu-icon">
+                                            <span class="svg-icon svg-icon-2">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                        </span>
+                                        <span class="menu-title">{{ __('Event Management')}}</span>
                                     </span>
                                 </a>
                             </div>
@@ -226,6 +586,11 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+
             <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
                 <div id="kt_header" class="header align-items-stretch">
                     <div class="header-brand">
